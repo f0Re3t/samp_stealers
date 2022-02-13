@@ -2,4 +2,5 @@
 fstd - Textdraws stealer  
 fso - Objects stealer (with text/textures and etc...)  
 3d text stealer - 3D Texts stealer  
-dialogs - Dialogs stealer
+dialogs - Dialogs stealer  
+vaos - Vehicle Attaches Object stealer
