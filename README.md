@@ -1,2 +1,3 @@
-# FSTD
-f0Re3t Stealer Textdraws
+# Samp Stealers - Collection of different stealers
+fstd - Textdraws stealer
+fso - Objects stealer (with text/textures and etc...)
