@@ -10,7 +10,7 @@ function main()
 	if not isSampLoaded() then return end
 	while not isSampAvailable() do wait(100) end
 	
-	sampAddChatMessage('[FSTD] Скрипт успешно загружен / перезагружен, удачного использования!', 0x20B2AA)
+	sampAddChatMessage('[FSTD] РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ / РїРµСЂРµР·Р°РіСЂСѓР¶РµРЅ, СѓРґР°С‡РЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ!', 0x20B2AA)
 	
 	sampRegisterChatCommand('fstd', fstd)
 end
@@ -18,17 +18,17 @@ end
 function fstd(arg)
 	if start_copy == 0 then
 		arg = tostring(arg)
-		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] Кривое название файла!', 0xFF4500) end
+		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] РљСЂРёРІРѕРµ РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р°!', 0xFF4500) end
 		local serv_name = sampGetCurrentServerName()
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
-		arg = arg:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		arg = arg:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FSTD') then createDirectory('FSTD') end
 		if not doesDirectoryExist(string.format('FSTD\\%s', serv_name)) then createDirectory(string.format('FSTD\\%s', serv_name)) end
 		if not doesFileExist(string.format('FSTD\\%s\\%s', serv_name, arg)) then
 			f_id = io.open(string.format('FSTD\\%s\\%s', serv_name, arg), 'a+')
-			sampAddChatMessage('[FSTD] Все показанные далее текстдравы будут скопированы в файл!', 0xFFA500)
+			sampAddChatMessage('[FSTD] Р’СЃРµ РїРѕРєР°Р·Р°РЅРЅС‹Рµ РґР°Р»РµРµ С‚РµРєСЃС‚РґСЂР°РІС‹ Р±СѓРґСѓС‚ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РІ С„Р°Р№Р»!', 0xFFA500)
 			start_copy = 1
-		else sampAddChatMessage('[FSTD] Файл с таким названием существует уже!', 0xFF4500) end
+		else sampAddChatMessage('[FSTD] Р¤Р°Р№Р» СЃ С‚Р°РєРёРј РЅР°Р·РІР°РЅРёРµРј СЃСѓС‰РµСЃС‚РІСѓРµС‚ СѓР¶Рµ!', 0xFF4500) end
 	elseif start_copy == 1 then
 		local num_glob_td = 0;
 		local num_play_td = 0;
@@ -131,7 +131,7 @@ function fstd(arg)
 			end
 		end
 		
-		sampAddChatMessage('[FSTD] Текстдравы успешно скопированы и сохранены в файл!', 0xFFA500)
+		sampAddChatMessage('[FSTD] РўРµРєСЃС‚РґСЂР°РІС‹ СѓСЃРїРµС€РЅРѕ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ Рё СЃРѕС…СЂР°РЅРµРЅС‹ РІ С„Р°Р№Р»!', 0xFFA500)
 		start_copy = 0
 		f_id:close()
 		for i = 1, #g_td_base do

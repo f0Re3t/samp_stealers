@@ -37,15 +37,15 @@ function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(100) end
 	
-	sampAddChatMessage('[FSO SIX] Скрипт успешно загружен и начал сбор данных об объектах', 0xFFFFDAB9)
-	sampAddChatMessage('[FSO SIX] Автор данного скрипта - f0Re3t', 0xFFEEE8AA)
-	sampAddChatMessage('[FSO SIX] Обо всех багах и ошибках скрипта писать в лс в вк', 0xFFEEE8AA)
+	sampAddChatMessage('[FSO SIX] РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ Рё РЅР°С‡Р°Р» СЃР±РѕСЂ РґР°РЅРЅС‹С… РѕР± РѕР±СЉРµРєС‚Р°С…', 0xFFFFDAB9)
+	sampAddChatMessage('[FSO SIX] РђРІС‚РѕСЂ РґР°РЅРЅРѕРіРѕ СЃРєСЂРёРїС‚Р° - f0Re3t', 0xFFEEE8AA)
+	sampAddChatMessage('[FSO SIX] РћР±Рѕ РІСЃРµС… Р±Р°РіР°С… Рё РѕС€РёР±РєР°С… СЃРєСЂРёРїС‚Р° РїРёСЃР°С‚СЊ РІ Р»СЃ РІ РІРє', 0xFFEEE8AA)
 	
-	if auto_set_int then sampAddChatMessage('[FSO SIX] Активирована система автоматического копирования интерьера! Для оффа - /fso_i', 0xFFFFDAB9) end
-	if auto_set_dd then sampAddChatMessage('[FSO SIX] Включено копирование дальности объекта! Для оффа - /fso_dd', 0xFFFFDAB9) end
-	if show_deleted_obj then sampAddChatMessage('[FSO SIX] Включен показ удаленных объектов! Для оффа - /fso_sdo', 0xFFFFDAB9) end
+	if auto_set_int then sampAddChatMessage('[FSO SIX] РђРєС‚РёРІРёСЂРѕРІР°РЅР° СЃРёСЃС‚РµРјР° Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РёРЅС‚РµСЂСЊРµСЂР°! Р”Р»СЏ РѕС„С„Р° - /fso_i', 0xFFFFDAB9) end
+	if auto_set_dd then sampAddChatMessage('[FSO SIX] Р’РєР»СЋС‡РµРЅРѕ РєРѕРїРёСЂРѕРІР°РЅРёРµ РґР°Р»СЊРЅРѕСЃС‚Рё РѕР±СЉРµРєС‚Р°! Р”Р»СЏ РѕС„С„Р° - /fso_dd', 0xFFFFDAB9) end
+	if show_deleted_obj then sampAddChatMessage('[FSO SIX] Р’РєР»СЋС‡РµРЅ РїРѕРєР°Р· СѓРґР°Р»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ! Р”Р»СЏ РѕС„С„Р° - /fso_sdo', 0xFFFFDAB9) end
 	if show_fso_info then
-		sampAddChatMessage('[FSO SIX] Включен показ инфы об объектах на экране! Для оффа - /fso_info', 0xFFFFDAB9)
+		sampAddChatMessage('[FSO SIX] Р’РєР»СЋС‡РµРЅ РїРѕРєР°Р· РёРЅС„С‹ РѕР± РѕР±СЉРµРєС‚Р°С… РЅР° СЌРєСЂР°РЅРµ! Р”Р»СЏ РѕС„С„Р° - /fso_info', 0xFFFFDAB9)
 		fso_info_thread = lua_thread.create(fso_info_update)
 	end
 	
@@ -75,7 +75,7 @@ function main()
 					servers_deleted_objects[i] = nil
 				end
 			end
-			sampAddChatMessage('[FSO SIX] Соединение с сервером потеряно, база объектов обнулена', 0xFFFFDAB9)
+			sampAddChatMessage('[FSO SIX] РЎРѕРµРґРёРЅРµРЅРёРµ СЃ СЃРµСЂРІРµСЂРѕРј РїРѕС‚РµСЂСЏРЅРѕ, Р±Р°Р·Р° РѕР±СЉРµРєС‚РѕРІ РѕР±РЅСѓР»РµРЅР°', 0xFFFFDAB9)
 		end
 		last_player_state = state
 	end
@@ -96,12 +96,12 @@ end
 function fso_info()
 	if show_fso_info then
 		show_fso_info = false
-		sampAddChatMessage('[FSO SIX] Информация об объектах отключена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РРЅС„РѕСЂРјР°С†РёСЏ РѕР± РѕР±СЉРµРєС‚Р°С… РѕС‚РєР»СЋС‡РµРЅР°!', 0xFFFFD700)
 		fso_info_thread:terminate()
 		fso_info_thread = -1
 	else
 		show_fso_info = true
-		sampAddChatMessage('[FSO SIX] Информация об объектах включена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РРЅС„РѕСЂРјР°С†РёСЏ РѕР± РѕР±СЉРµРєС‚Р°С… РІРєР»СЋС‡РµРЅР°!', 0xFFFFD700)
 		fso_info_thread = lua_thread.create(fso_info_update)
 	end
 end
@@ -125,9 +125,9 @@ function fso_info_update()
 				if selected_to_delete_objects[i] ~= nil and not selected_to_delete_objects[i]['deleted_obj'] then copy_deleted = copy_deleted + 1 end
 			end
 			
-			renderFontDrawText(render_font, string.format('Объектов в бд скрипта: %d | Выделено для копирования: %d | Всего: %d', base_created, copy_created,
+			renderFontDrawText(render_font, string.format('РћР±СЉРµРєС‚РѕРІ РІ Р±Рґ СЃРєСЂРёРїС‚Р°: %d | Р’С‹РґРµР»РµРЅРѕ РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ: %d | Р’СЃРµРіРѕ: %d', base_created, copy_created,
 				#servers_database_objects), 42, 213, 0xFF7FFFD4)
-			renderFontDrawText(render_font, string.format('Удаленных объектов: %d | Выделено для копирования: %d | Всего: %d', base_deleted, copy_deleted,
+			renderFontDrawText(render_font, string.format('РЈРґР°Р»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ: %d | Р’С‹РґРµР»РµРЅРѕ РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ: %d | Р’СЃРµРіРѕ: %d', base_deleted, copy_deleted,
 				#servers_deleted_objects), 42, 233, 0xFFF0E68C)
 		end
 	until false
@@ -136,102 +136,102 @@ end
 function fso_sdo(arg)
 	if show_deleted_obj then
 		show_deleted_obj = false
-		sampAddChatMessage('[FSO SIX] Показ удаленных объектов отключен!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РџРѕРєР°Р· СѓРґР°Р»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РѕС‚РєР»СЋС‡РµРЅ!', 0xFFFFD700)
 	else
 		show_deleted_obj = true
-		sampAddChatMessage('[FSO SIX] Показ удаленных объектов включен!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РџРѕРєР°Р· СѓРґР°Р»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РІРєР»СЋС‡РµРЅ!', 0xFFFFD700)
 	end
 end
 
 function fso_dd(arg)
 	if auto_set_dd then
 		auto_set_dd = false
-		sampAddChatMessage('[FSO SIX] Система установки дальности прорисовки отключена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РЎРёСЃС‚РµРјР° СѓСЃС‚Р°РЅРѕРІРєРё РґР°Р»СЊРЅРѕСЃС‚Рё РїСЂРѕСЂРёСЃРѕРІРєРё РѕС‚РєР»СЋС‡РµРЅР°!', 0xFFFFD700)
 	else
 		auto_set_dd = true
-		sampAddChatMessage('[FSO SIX] Система установки дальности прорисовки включена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РЎРёСЃС‚РµРјР° СѓСЃС‚Р°РЅРѕРІРєРё РґР°Р»СЊРЅРѕСЃС‚Рё РїСЂРѕСЂРёСЃРѕРІРєРё РІРєР»СЋС‡РµРЅР°!', 0xFFFFD700)
 	end
 end
 
 function fso_i(arg)
 	if auto_set_int then
 		auto_set_int = false
-		sampAddChatMessage('[FSO SIX] Система установки ид интерьера отключена', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РЎРёСЃС‚РµРјР° СѓСЃС‚Р°РЅРѕРІРєРё РёРґ РёРЅС‚РµСЂСЊРµСЂР° РѕС‚РєР»СЋС‡РµРЅР°', 0xFFFFD700)
 	else
 		auto_set_int = true
-		sampAddChatMessage('[FSO SIX] Система установки ид интерьера включена', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РЎРёСЃС‚РµРјР° СѓСЃС‚Р°РЅРѕРІРєРё РёРґ РёРЅС‚РµСЂСЊРµСЂР° РІРєР»СЋС‡РµРЅР°', 0xFFFFD700)
 	end
 end
 
 function fso_w(arg)
-	if copy_start ~= 0 then return sampAddChatMessage('[FSO SIX] В данный момент задать вирт мир нельзя', 0xFF9ACD32) end
+	if copy_start ~= 0 then return sampAddChatMessage('[FSO SIX] Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ Р·Р°РґР°С‚СЊ РІРёСЂС‚ РјРёСЂ РЅРµР»СЊР·СЏ', 0xFF9ACD32) end
 	local W = string.match(arg, '(%d+)')
 	W = tonumber(W)
 	if W ~= nil then
 		if W == 0 then int_world = -1 else int_world = W end
-		sampAddChatMessage('[FSO SIX] Вирт мир для объектов успешно установлен', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Р’РёСЂС‚ РјРёСЂ РґР»СЏ РѕР±СЉРµРєС‚РѕРІ СѓСЃРїРµС€РЅРѕ СѓСЃС‚Р°РЅРѕРІР»РµРЅ', 0xFFFFD700)
 		return
 	end
-	sampAddChatMessage('[FSO SIX] Не указан ид вирт мира (если не нужен напиши 0)', 0xFF9ACD32)
+	sampAddChatMessage('[FSO SIX] РќРµ СѓРєР°Р·Р°РЅ РёРґ РІРёСЂС‚ РјРёСЂР° (РµСЃР»Рё РЅРµ РЅСѓР¶РµРЅ РЅР°РїРёС€Рё 0)', 0xFF9ACD32)
 end
 
 function fso_d(arg)
-	if arg == nil then return sampAddChatMessage('[FSO SIX] Укажите тип удалямоего объекта', 0xFF9ACD32) end
+	if arg == nil then return sampAddChatMessage('[FSO SIX] РЈРєР°Р¶РёС‚Рµ С‚РёРї СѓРґР°Р»СЏРјРѕРµРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32) end
 	local name, id = string.match(arg, '(%a+)% (%d+)')
 	name = tostring(name)
 	id = tonumber(id)
-	if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
-	if id < 1 then return sampAddChatMessage('[FSO SIX] Указан неверный тип удаляемого объекта', 0xFF9ACD32) end
+	if id == nil then return sampAddChatMessage('[FSO SIX] РќРµ СѓРєР°Р·Р°РЅ РёРґ РёР»Рё С‚РёРї СѓРґР°Р»СЏРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32) end
+	if id < 1 then return sampAddChatMessage('[FSO SIX] РЈРєР°Р·Р°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓРґР°Р»СЏРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32) end
 	local deleted_or_not = false
 	if name == 'CO' or name == 'co' then
-		if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
+		if id == nil then return sampAddChatMessage('[FSO SIX] РќРµ СѓРєР°Р·Р°РЅ РёРґ РёР»Рё С‚РёРї СѓРґР°Р»СЏРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32) end
 		for i = 1, #selected_to_copy_objects do
 			if selected_to_copy_objects[i] ~= nil then
 				if selected_to_copy_objects[i]['scr_id'] == id then
 					if selected_to_copy_objects[i]['deleted_obj'] then
-						sampAddChatMessage('[FSO SIX] Объект с указанным идом восстановлен из удаленных', 0xFFFFD700)
+						sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅ РёР· СѓРґР°Р»РµРЅРЅС‹С…', 0xFFFFD700)
 						selected_to_copy_objects[i]['deleted_obj'] = false
 						deleted_or_not = true
 						break
 					end
 					selected_to_copy_objects[i]['deleted_obj'] = true
-					sampAddChatMessage('[FSO SIX] Объект с указанным идом удален из базы копируемых', 0xFFFFD700)
+					sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј СѓРґР°Р»РµРЅ РёР· Р±Р°Р·С‹ РєРѕРїРёСЂСѓРµРјС‹С…', 0xFFFFD700)
 					deleted_or_not = true
 				end
 			end
 		end
-		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Объект с указанным идом не найден в базе', 0xFF9ACD32) end
+		if not deleted_or_not then sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј РЅРµ РЅР°Р№РґРµРЅ РІ Р±Р°Р·Рµ', 0xFF9ACD32) end
 	elseif name == 'DO' or name == 'do' then
-		if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
+		if id == nil then return sampAddChatMessage('[FSO SIX] РќРµ СѓРєР°Р·Р°РЅ РёРґ РёР»Рё С‚РёРї СѓРґР°Р»СЏРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32) end
 		for i = 1, #selected_to_delete_objects do
 			if selected_to_delete_objects[i] ~= nil then
 				if selected_to_delete_objects[i]['scr_id'] == id then
 					if selected_to_delete_objects[i]['deleted_obj'] then
-						sampAddChatMessage('[FSO SIX] Объект с указанным идом восстановлен из удаленных', 0xFFFFD700)
+						sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅ РёР· СѓРґР°Р»РµРЅРЅС‹С…', 0xFFFFD700)
 						selected_to_delete_objects[i]['deleted_obj'] = false
 						deleted_or_not = true
 						break
 					end
 					selected_to_delete_objects[i]['deleted_obj'] = true
-					sampAddChatMessage('[FSO SIX] Объект с указанным идом удален из базы копируемых', 0xFFFFD700)
+					sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј СѓРґР°Р»РµРЅ РёР· Р±Р°Р·С‹ РєРѕРїРёСЂСѓРµРјС‹С…', 0xFFFFD700)
 					deleted_or_not = true
 				end
 			end
 		end
-		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Объект с указанным идом не найден в базе', 0xFF9ACD32) end
+		if not deleted_or_not then sampAddChatMessage('[FSO SIX] РћР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРѕРј РЅРµ РЅР°Р№РґРµРЅ РІ Р±Р°Р·Рµ', 0xFF9ACD32) end
 	else
-		sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32)
+		sampAddChatMessage('[FSO SIX] РќРµ СѓРєР°Р·Р°РЅ РёРґ РёР»Рё С‚РёРї СѓРґР°Р»СЏРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°', 0xFF9ACD32)
 	end
 end
 
 function ffso_cmd_funcs(arg)
 	if copy_start == 0 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Введите название файла в который сохранится маппинг', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° РІ РєРѕС‚РѕСЂС‹Р№ СЃРѕС…СЂР°РЅРёС‚СЃСЏ РјР°РїРїРёРЅРі', 0xFF9ACD32) end
 		arg = tostring(arg)
-		if arg == nil or arg == '' then return sampAddChatMessage('[FSO SIX] Введите название файла в который сохранится маппинг', 0xFF9ACD32) end
+		if arg == nil or arg == '' then return sampAddChatMessage('[FSO SIX] Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° РІ РєРѕС‚РѕСЂС‹Р№ СЃРѕС…СЂР°РЅРёС‚СЃСЏ РјР°РїРїРёРЅРі', 0xFF9ACD32) end
 		local serv_name = sampGetCurrentServerName()
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
-		arg = arg:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		arg = arg:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FSO') then createDirectory('FSO') end
 		if not doesDirectoryExist(string.format('FSO\\%s', serv_name)) then createDirectory(string.format('FSO\\%s', serv_name)) end
 		if not doesFileExist(string.format('FSO\\%s\\%s', serv_name, arg)) then
@@ -243,29 +243,29 @@ function ffso_cmd_funcs(arg)
 			if int_world ~= 0 and int_world ~= -1 then
 				f_id:write(string.format('SetPlayerVirtualWorld(playerid, %d);', int_world) .. '\n')
 			end
-			sampAddChatMessage('[FSO SIX] Файл для сохранения маппинга создан, точка спавна установлена, следующий пункт - тип стиллинга объектов', 0xFFFFD700)
-			sampAddChatMessage('[FSO SIX] Доступные типы стиллинга объектов: 1 - по кубоидной форме, 2 - по радиусной форме', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] Р¤Р°Р№Р» РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РјР°РїРїРёРЅРіР° СЃРѕР·РґР°РЅ, С‚РѕС‡РєР° СЃРїР°РІРЅР° СѓСЃС‚Р°РЅРѕРІР»РµРЅР°, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - С‚РёРї СЃС‚РёР»Р»РёРЅРіР° РѕР±СЉРµРєС‚РѕРІ', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] Р”РѕСЃС‚СѓРїРЅС‹Рµ С‚РёРїС‹ СЃС‚РёР»Р»РёРЅРіР° РѕР±СЉРµРєС‚РѕРІ: 1 - РїРѕ РєСѓР±РѕРёРґРЅРѕР№ С„РѕСЂРјРµ, 2 - РїРѕ СЂР°РґРёСѓСЃРЅРѕР№ С„РѕСЂРјРµ', 0xFFFFD700)
 			copy_start = copy_start + 1
 		else
-			sampAddChatMessage('[FSO SIX] Файл в который вы собираетесь сохранить маппинг уже существует', 0xFF9ACD32)
+			sampAddChatMessage('[FSO SIX] Р¤Р°Р№Р» РІ РєРѕС‚РѕСЂС‹Р№ РІС‹ СЃРѕР±РёСЂР°РµС‚РµСЃСЊ СЃРѕС…СЂР°РЅРёС‚СЊ РјР°РїРїРёРЅРі СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚', 0xFF9ACD32)
 		end
 	elseif copy_start == 1 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указан неверный тип стиллинга объектов', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] РЈРєР°Р·Р°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СЃС‚РёР»Р»РёРЅРіР° РѕР±СЉРµРєС‚РѕРІ', 0xFF9ACD32) end
 		arg = tonumber(arg)
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указан неверный тип стиллинга объектов', 0xFF9ACD32) end
-		if arg < 1 or arg > 2 then return sampAddChatMessage('[FSO SIX] Тип стиллинга не может быть меньше 1 или больше 2', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] РЈРєР°Р·Р°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СЃС‚РёР»Р»РёРЅРіР° РѕР±СЉРµРєС‚РѕРІ', 0xFF9ACD32) end
+		if arg < 1 or arg > 2 then return sampAddChatMessage('[FSO SIX] РўРёРї СЃС‚РёР»Р»РёРЅРіР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ 1 РёР»Рё Р±РѕР»СЊС€Рµ 2', 0xFF9ACD32) end
 		if arg == 1 then
 			copy_start = copy_start + 10
-			sampAddChatMessage('[FSO SIX] Тип стиллинга установлен - кубоидная форма, следующий пункт - минимальная позиция', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] РўРёРї СЃС‚РёР»Р»РёРЅРіР° СѓСЃС‚Р°РЅРѕРІР»РµРЅ - РєСѓР±РѕРёРґРЅР°СЏ С„РѕСЂРјР°, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - РјРёРЅРёРјР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ', 0xFFFFD700)
 			copy_tipe_select = 2
 		else
 			copy_start = copy_start + 1
-			sampAddChatMessage('[FSO SIX] Тип стиллинга установлен - радиусная форма, следующий пункт - центральная точка радиуса', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] РўРёРї СЃС‚РёР»Р»РёРЅРіР° СѓСЃС‚Р°РЅРѕРІР»РµРЅ - СЂР°РґРёСѓСЃРЅР°СЏ С„РѕСЂРјР°, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - С†РµРЅС‚СЂР°Р»СЊРЅР°СЏ С‚РѕС‡РєР° СЂР°РґРёСѓСЃР°', 0xFFFFD700)
 			copy_tipe_select = 1
 		end
 	elseif copy_start == 11 then
 		mi_x, mi_y, mi_z = getCharCoordinates(PLAYER_PED)
-		sampAddChatMessage('[FSO SIX] Минимальная позиция куба установлена, следующий пункт - максимальная позиция', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РњРёРЅРёРјР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ РєСѓР±Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅР°, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ', 0xFFFFD700)
 		copy_start = copy_start + 1
 	elseif copy_start == 12 then
 		ma_x, ma_y, ma_z = getCharCoordinates(PLAYER_PED)
@@ -303,21 +303,21 @@ function ffso_cmd_funcs(arg)
 			for i = 1, #selected_to_delete_objects do
 				selected_to_delete_objects[i] = nil
 			end
-			sampAddChatMessage('[FSO SIX] В заданном кубе не найдено ни одного объекта для копирования', 0xFFFFFF00)
+			sampAddChatMessage('[FSO SIX] Р’ Р·Р°РґР°РЅРЅРѕРј РєСѓР±Рµ РЅРµ РЅР°Р№РґРµРЅРѕ РЅРё РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ', 0xFFFFFF00)
 			return
 		end
-		sampAddChatMessage('[FSO SIX] Начинаем рендер всех выделенных объектов в заданном кубе, следующий пункт - сохранение маппинга в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РќР°С‡РёРЅР°РµРј СЂРµРЅРґРµСЂ РІСЃРµС… РІС‹РґРµР»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РІ Р·Р°РґР°РЅРЅРѕРј РєСѓР±Рµ, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - СЃРѕС…СЂР°РЅРµРЅРёРµ РјР°РїРїРёРЅРіР° РІ С„Р°Р№Р»', 0xFFFFD700)
 		render_id = lua_thread.create(render_objects_id_keys)
 		copy_start = 4
 	elseif copy_start == 2 then
 		ma_x, ma_y, ma_z = getCharCoordinates(PLAYER_PED)
-		sampAddChatMessage('[FSO SIX] Центральная точка радиуса установлена, следующий пункт - значеие самого радиуса', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Р¦РµРЅС‚СЂР°Р»СЊРЅР°СЏ С‚РѕС‡РєР° СЂР°РґРёСѓСЃР° СѓСЃС‚Р°РЅРѕРІР»РµРЅР°, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - Р·РЅР°С‡РµРёРµ СЃР°РјРѕРіРѕ СЂР°РґРёСѓСЃР°', 0xFFFFD700)
 		copy_start = copy_start + 1
 	elseif copy_start == 3 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указано неверное значение радиуса', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] РЈРєР°Р·Р°РЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЂР°РґРёСѓСЃР°', 0xFF9ACD32) end
 		arg = tonumber(arg)
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указано неверное значение радиуса', 0xFF9ACD32) end
-		if arg < 1 or arg > 5000 then return sampAddChatMessage('[FSO SIX] Задано кривое значеие радиуса | Радиус не может быть меньше 1 или больше 5000', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] РЈРєР°Р·Р°РЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЂР°РґРёСѓСЃР°', 0xFF9ACD32) end
+		if arg < 1 or arg > 5000 then return sampAddChatMessage('[FSO SIX] Р—Р°РґР°РЅРѕ РєСЂРёРІРѕРµ Р·РЅР°С‡РµРёРµ СЂР°РґРёСѓСЃР° | Р Р°РґРёСѓСЃ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ 1 РёР»Рё Р±РѕР»СЊС€Рµ 5000', 0xFF9ACD32) end
 		type_two_radius = arg
 		for i = 1, #servers_database_objects do
 			if servers_database_objects[i] ~= nil then
@@ -353,10 +353,10 @@ function ffso_cmd_funcs(arg)
 			for i = 1, #selected_to_delete_objects do
 				selected_to_delete_objects[i] = nil
 			end
-			sampAddChatMessage('[FSO SIX] В заданном радиусе не найдено ни одного объекта для копирования', 0xFFFFFF00)
+			sampAddChatMessage('[FSO SIX] Р’ Р·Р°РґР°РЅРЅРѕРј СЂР°РґРёСѓСЃРµ РЅРµ РЅР°Р№РґРµРЅРѕ РЅРё РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ', 0xFFFFFF00)
 			return
 		end
-		sampAddChatMessage('[FSO SIX] Начинаем рендер всех выделенных объектов в заданном радиусе, следующий пункт - сохранение маппинга в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РќР°С‡РёРЅР°РµРј СЂРµРЅРґРµСЂ РІСЃРµС… РІС‹РґРµР»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РІ Р·Р°РґР°РЅРЅРѕРј СЂР°РґРёСѓСЃРµ, СЃР»РµРґСѓСЋС‰РёР№ РїСѓРЅРєС‚ - СЃРѕС…СЂР°РЅРµРЅРёРµ РјР°РїРїРёРЅРіР° РІ С„Р°Р№Р»', 0xFFFFD700)
 		render_id = lua_thread.create(render_objects_id_keys)
 		copy_start = copy_start + 1
 	elseif copy_start == 4 then
@@ -473,7 +473,7 @@ function ffso_cmd_funcs(arg)
 			end
 		end
 		
-		sampAddChatMessage('[FSO SIX] Маппинг успешно скопирован с сервера и сохранен в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] РњР°РїРїРёРЅРі СѓСЃРїРµС€РЅРѕ СЃРєРѕРїРёСЂРѕРІР°РЅ СЃ СЃРµСЂРІРµСЂР° Рё СЃРѕС…СЂР°РЅРµРЅ РІ С„Р°Р№Р»', 0xFFFFD700)
 		
 		f_id:close()
 		render_id:terminate()
@@ -1117,6 +1117,6 @@ function fso_un(arg)
 		end
 	end
 	
-	sampAddChatMessage('[FSO SIX] Дамп базы объектов скрипта сохранен в папке игры с названием debug_map', 0xFFFFD700)
+	sampAddChatMessage('[FSO SIX] Р”Р°РјРї Р±Р°Р·С‹ РѕР±СЉРµРєС‚РѕРІ СЃРєСЂРёРїС‚Р° СЃРѕС…СЂР°РЅРµРЅ РІ РїР°РїРєРµ РёРіСЂС‹ СЃ РЅР°Р·РІР°РЅРёРµРј debug_map', 0xFFFFD700)
 	debug_id:close()
 end

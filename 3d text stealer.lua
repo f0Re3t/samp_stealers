@@ -17,8 +17,8 @@ local path_to_file = ''
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(0) end
-	sampAddChatMessage('[FS3DT] Скрипт успешно загружен / перезагружен, удачного использования!', 0xAFEEEE)
-	sampAddChatMessage('[FS3DT] Автор всея творения f0Re3t!', 0xAFEEEE)
+	sampAddChatMessage('[FS3DT] РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ / РїРµСЂРµР·Р°РіСЂСѓР¶РµРЅ, СѓРґР°С‡РЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ!', 0xAFEEEE)
+	sampAddChatMessage('[FS3DT] РђРІС‚РѕСЂ РІСЃРµСЏ С‚РІРѕСЂРµРЅРёСЏ f0Re3t!', 0xAFEEEE)
 	while true do
 		wait(0)
 		if wasKeyPressed(k.VK_Z) and not sampIsChatInputActive() and not sampIsDialogActive() and f_id ~= -1 then act_menu.v = not act_menu.v end
@@ -29,16 +29,16 @@ end
 function h.onInitGame(playerId, hostName, settings, vehicleModels, unknown)
 	if f_id == -1 then
 		local serv_name = hostName
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>Х!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>РҐ!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FS3DT') then createDirectory('FS3DT') end
 		if not doesFileExist(string.format('FS3DT\\%s', serv_name)) then
 			f_id = io.open(string.format('FS3DT\\%s', serv_name), 'a+')
-			sampAddChatMessage('[FS3DT] Файл создан, двойное нажатие в спсике сохранит выбранный 3д текст в файл!', 0xFFA500)
+			sampAddChatMessage('[FS3DT] Р¤Р°Р№Р» СЃРѕР·РґР°РЅ, РґРІРѕР№РЅРѕРµ РЅР°Р¶Р°С‚РёРµ РІ СЃРїСЃРёРєРµ СЃРѕС…СЂР°РЅРёС‚ РІС‹Р±СЂР°РЅРЅС‹Р№ 3Рґ С‚РµРєСЃС‚ РІ С„Р°Р№Р»!', 0xFFA500)
 			path_to_file = string.format('FS3DT\\%s', serv_name)
 			saved_3dts = 0
 		else
 			f_id = io.open(string.format('FS3DT\\%s', serv_name), 'w+')
-			sampAddChatMessage('[FS3DT] Файл сервера уже существуюет, удаляем!', 0xFFA500)
+			sampAddChatMessage('[FS3DT] Р¤Р°Р№Р» СЃРµСЂРІРµСЂР° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋРµС‚, СѓРґР°Р»СЏРµРј!', 0xFFA500)
 			saved_3dts = 0
 			path_to_file = string.format('FS3DT\\%s', serv_name)
 		end
@@ -73,28 +73,28 @@ function i.OnDrawFrame()
 		local sx, sy = getScreenResolution()
 		i.SetNextWindowSize(i.ImVec2(800, 500), i.Cond.FirstUseEver)
 		i.SetNextWindowPos(i.ImVec2((sx / 2) - 400, (sy / 2) - 250), i.Cond.FirstUseEver, i.ImVec2(0, 0))
-		i.Begin(e.UTF8(string.format('Стиллер 3д Текстов (В Стриме %d Текстов)', #fs3dt_base)), act_menu,
+		i.Begin(e.UTF8(string.format('РЎС‚РёР»Р»РµСЂ 3Рґ РўРµРєСЃС‚РѕРІ (Р’ РЎС‚СЂРёРјРµ %d РўРµРєСЃС‚РѕРІ)', #fs3dt_base)), act_menu,
 			i.WindowFlags.NoResize + i.WindowFlags.NoMove + i.WindowFlags.NoCollapse + i.WindowFlags.NoScrollbar + i.WindowFlags.NoBringToFrontOnFocus + i.WindowFlags.NoScrollWithMouse)
 		i.Columns(6)
 		i.Separator()
 		i.NewLine()
 		i.SameLine(2)
-		i.Text(e.UTF8('Ид'))
+		i.Text(e.UTF8('РРґ'))
 		i.SetColumnWidth(-1, 55)
 		i.NextColumn()
-		i.Text(e.UTF8('Позиция'))
+		i.Text(e.UTF8('РџРѕР·РёС†РёСЏ'))
 		i.SetColumnWidth(-1, 193)
 		i.NextColumn()
-		i.Text(e.UTF8('Дистанция'))
+		i.Text(e.UTF8('Р”РёСЃС‚Р°РЅС†РёСЏ'))
 		i.SetColumnWidth(-1, 80)
 		i.NextColumn()
-		i.Text(e.UTF8('Аттач к игроку'))
+		i.Text(e.UTF8('РђС‚С‚Р°С‡ Рє РёРіСЂРѕРєСѓ'))
 		i.SetColumnWidth(-1, 100)
 		i.NextColumn()
-		i.Text(e.UTF8('Аттач к машине'))
+		i.Text(e.UTF8('РђС‚С‚Р°С‡ Рє РјР°С€РёРЅРµ'))
 		i.SetColumnWidth(-1, 105)
 		i.NextColumn()
-		i.Text(e.UTF8('Текст'))
+		i.Text(e.UTF8('РўРµРєСЃС‚'))
 		i.SetColumnWidth(-1, 267)
 		i.NextColumn()
 		i.Columns(1)
@@ -125,10 +125,10 @@ function i.OnDrawFrame()
 						if f_id ~= -1 then
 							f_id:write(ed_code .. '\n\n')
 							f_id:flush()
-							sampAddChatMessage('[FS3DT] Выбранный 3д текст записан в файл!', 0xFFA500)
+							sampAddChatMessage('[FS3DT] Р’С‹Р±СЂР°РЅРЅС‹Р№ 3Рґ С‚РµРєСЃС‚ Р·Р°РїРёСЃР°РЅ РІ С„Р°Р№Р»!', 0xFFA500)
 							saved_3dts = saved_3dts + 1
 						else
-							sampAddChatMessage('[FS3DT] Ошибка сохранения в файл!', 0xFF4500)
+							sampAddChatMessage('[FS3DT] РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ С„Р°Р№Р»!', 0xFF4500)
 						end
 					end
 				end
@@ -136,7 +136,7 @@ function i.OnDrawFrame()
 				i.PushStyleVar(i.StyleVar.WindowPadding, i.ImVec2(4, 4))
 				if i.BeginPopupContextItem() then
 					act_type.v = ed_code
-					i.InputTextMultiline('Редактор кода', act_type, 16384, i.ImVec2(250, 250))
+					i.InputTextMultiline('Р РµРґР°РєС‚РѕСЂ РєРѕРґР°', act_type, 16384, i.ImVec2(250, 250))
 					i.EndPopup()
 				end
 				i.PopStyleVar()
@@ -165,7 +165,7 @@ function i.OnDrawFrame()
 		i.Columns(1)
 		if #fs3dt_base == 0 then
 			i.SameLine(5.0)
-			i.Text(e.UTF8('3д Текстов В зоне Стрима Нет'))
+			i.Text(e.UTF8('3Рґ РўРµРєСЃС‚РѕРІ Р’ Р·РѕРЅРµ РЎС‚СЂРёРјР° РќРµС‚'))
 		end
 		i.Separator()
 		i.EndChild()
