@@ -10,7 +10,7 @@ function main()
 	if not isSampLoaded() then return end
 	while not isSampAvailable() do wait(100) end
 	
-	sampAddChatMessage('[FSTD] Скрипт успешно загружен / перезагружен, удачного использования!', 0x20B2AA)
+	sampAddChatMessage('[FSTD] Script baixado com sucesso / reiniciado, uso bem-sucedido!', 0x20B2AA)
 	
 	sampRegisterChatCommand('fstd', fstd)
 end
@@ -18,7 +18,7 @@ end
 function fstd(arg)
 	if start_copy == 0 then
 		arg = tostring(arg)
-		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] Кривое название файла!', 0xFF4500) end
+		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] Nome de arquivo incorreto!', 0xFF4500) end
 		local serv_name = sampGetCurrentServerName()
 		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		arg = arg:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
@@ -26,9 +26,9 @@ function fstd(arg)
 		if not doesDirectoryExist(string.format('FSTD\\%s', serv_name)) then createDirectory(string.format('FSTD\\%s', serv_name)) end
 		if not doesFileExist(string.format('FSTD\\%s\\%s', serv_name, arg)) then
 			f_id = io.open(string.format('FSTD\\%s\\%s', serv_name, arg), 'a+')
-			sampAddChatMessage('[FSTD] Все показанные далее текстдравы будут скопированы в файл!', 0xFFA500)
+			sampAddChatMessage('[FSTD] Todos os desenhos de texto mostrados abaixo serão copiados para o arquivo!', 0xFFA500)
 			start_copy = 1
-		else sampAddChatMessage('[FSTD] Файл с таким названием существует уже!', 0xFF4500) end
+		else sampAddChatMessage('[FSTD] Já existe um arquivo com esse nome!', 0xFF4500) end
 	elseif start_copy == 1 then
 		local num_glob_td = 0;
 		local num_play_td = 0;
@@ -131,7 +131,7 @@ function fstd(arg)
 			end
 		end
 		
-		sampAddChatMessage('[FSTD] Текстдравы успешно скопированы и сохранены в файл!', 0xFFA500)
+		sampAddChatMessage('[FSTD] Os drives de texto foram copiados e salvos com êxito em um arquivo!', 0xFFA500)
 		start_copy = 0
 		f_id:close()
 		for i = 1, #g_td_base do
