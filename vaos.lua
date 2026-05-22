@@ -11,24 +11,10 @@ local softLicenses = [[
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-  (Это свободная программа: вы можете перераспространять ее и/или изменять
-   ее на условиях Стандартной общественной лицензии GNU в том виде, в каком
-   она была опубликована Фондом свободного программного обеспечения; либо
-   версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
-
-   Эта программа распространяется в надежде, что она будет полезной,
-   но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
-   или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
-   общественной лицензии GNU.
-
-   Вы должны были получить копию Стандартной общественной лицензии GNU
-   вместе с этой программой. Если это не так, см.
-   <https://www.gnu.org/licenses/>.)
 ]]
 
 local h = require('samp.events')
-local bit = require('numberlua')
+local bit = require('bit')
 
 local objectsTable = { }
 
@@ -67,7 +53,7 @@ function vaos(id)
 	local sIp, sPort = sampGetCurrentServerAddress()
 	local sName = sIp .. '_' .. sPort
 	
-	sName = sName:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+	sName = sName:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 	
 	if not doesDirectoryExist('VAOS') then createDirectory('VAOS') end
 	if not doesDirectoryExist(string.format('VAOS\\%s', sName)) then createDirectory(string.format('VAOS\\%s', sName)) end

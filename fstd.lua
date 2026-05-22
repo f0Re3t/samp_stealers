@@ -9,30 +9,30 @@ local g_td_base = { }
 function main()
 	if not isSampLoaded() then return end
 	while not isSampAvailable() do wait(100) end
-	
-	sampAddChatMessage('[FSTD] Скрипт успешно загружен / перезагружен, удачного использования!', 0x20B2AA)
-	
+
+	sampAddChatMessage('[FSTD] Script successfully loaded / reloaded, enjoy!', 0x20B2AA)
+
 	sampRegisterChatCommand('fstd', fstd)
 end
 
 function fstd(arg)
 	if start_copy == 0 then
 		arg = tostring(arg)
-		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] Кривое название файла!', 0xFF4500) end
+		if arg == nil or arg == '' then return sampAddChatMessage('[FSTD] Enter the filename!', 0xFF4500) end
 		local serv_name = sampGetCurrentServerName()
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
-		arg = arg:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		arg = arg:gsub('[|%%%[%]! :\\/*|"<>' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FSTD') then createDirectory('FSTD') end
 		if not doesDirectoryExist(string.format('FSTD\\%s', serv_name)) then createDirectory(string.format('FSTD\\%s', serv_name)) end
 		if not doesFileExist(string.format('FSTD\\%s\\%s', serv_name, arg)) then
 			f_id = io.open(string.format('FSTD\\%s\\%s', serv_name, arg), 'a+')
-			sampAddChatMessage('[FSTD] Все показанные далее текстдравы будут скопированы в файл!', 0xFFA500)
+			sampAddChatMessage('[FSTD] Double-click in the list will save the selected textdraw to file!', 0xFFA500)
 			start_copy = 1
-		else sampAddChatMessage('[FSTD] Файл с таким названием существует уже!', 0xFF4500) end
+		else sampAddChatMessage('[FSTD] The file already exists!', 0xFF4500) end
 	elseif start_copy == 1 then
 		local num_glob_td = 0;
 		local num_play_td = 0;
-		
+
 		for i = 1, #g_td_base do
 			if g_td_base[i]['textdrawId'] < 2048 then
 				num_glob_td = num_glob_td + 1;
@@ -40,13 +40,13 @@ function fstd(arg)
 				num_play_td = num_play_td + 1;
 			end
 		end
-		
+
 		if num_glob_td > 0 then f_id:write(string.format('new Text:fstd[%d];', num_glob_td) .. '\n') end
 		if num_play_td > 0 then f_id:write(string.format('new PlayerText:fstd_p[MAX_PLAYERS][%d];', num_play_td) .. '\n') end
-		
+
 		local num_glob_cyc = num_glob_td
 		local num_play_cyc = num_play_td
-		
+
 		for i = 1, #g_td_base do
 			local byteBox = bitex.bextract(g_td_base[i]['flags'], 0, 1)
 			local byteLeft = bitex.bextract(g_td_base[i]['flags'], 1, 1)
@@ -54,7 +54,7 @@ function fstd(arg)
 			local byteCenter = bitex.bextract(g_td_base[i]['flags'], 3, 1)
 			local byteProportional = bitex.bextract(g_td_base[i]['flags'], 4, 1)
 			local bytePadding = bitex.bextract(g_td_base[i]['flags'], 5, 3)
-			
+
 			local alg = 0
 			if byteLeft ~= 0 and byteRight == 0 and byteCenter == 0 then
 				alg = 1
@@ -65,7 +65,7 @@ function fstd(arg)
 			else
 				alg = 0
 			end
-			
+
 			if g_td_base[i]['textdrawId'] < 2048 then
 				num_glob_cyc = num_glob_cyc - 1
 				f_id:write('\n' .. string.format('fstd[%d] = TextDrawCreate(%f, %f, "%s");', num_glob_cyc, g_td_base[i]['position']['x'], g_td_base[i]['position']['y'], g_td_base[i]['text']) .. '\n')
@@ -81,11 +81,11 @@ function fstd(arg)
 				f_id:write(string.format('TextDrawFont(fstd[%d], %d);', num_glob_cyc, g_td_base[i]['style']) .. '\n')
 				f_id:write(string.format('TextDrawSetProportional(fstd[%d], %d);', num_glob_cyc, byteProportional) .. '\n')
 				f_id:write(string.format('TextDrawSetSelectable(fstd[%d], %d);', num_glob_cyc, g_td_base[i]['selectable']) .. '\n')
-				
+
 				if g_td_base[i]['style'] == 5 then
 					f_id:write(string.format('TextDrawSetPreviewModel(fstd[%d], %d);', num_glob_cyc, g_td_base[i]['modelId']) .. '\n')
 					f_id:write(string.format('TextDrawSetPreviewRot(fstd[%d], %f, %f, %f, %f);', num_glob_cyc, g_td_base[i]['rotation']['x'], g_td_base[i]['rotation']['y'], g_td_base[i]['rotation']['z'], g_td_base[i]['zoom']) .. '\n')
-					
+
 					if g_td_base[i]['modelId'] >= 400 and g_td_base[i]['modelId'] <= 611 then
 						f_id:write(string.format('TextDrawSetPreviewVehCol(fstd[%d], %d, %d);', num_glob_cyc, g_td_base[i]['color'], g_td_base[i]['color2']) .. '\n')
 					end
@@ -105,21 +105,21 @@ function fstd(arg)
 				f_id:write(string.format('PlayerTextDrawFont(playerid, fstd_p[playerid][%d], %d);', num_play_cyc, g_td_base[i]['style']) .. '\n')
 				f_id:write(string.format('PlayerTextDrawSetProportional(playerid, fstd_p[playerid][%d], %d);', num_play_cyc, byteProportional) .. '\n')
 				f_id:write(string.format('PlayerTextDrawSetSelectable(playerid, fstd_p[playerid][%d], %d);', num_play_cyc, g_td_base[i]['selectable']) .. '\n')
-				
+
 				if g_td_base[i]['style'] == 5 then
 					f_id:write(string.format('PlayerTextDrawSetPreviewModel(playerid, fstd_p[playerid][%d], %d);', num_play_cyc, g_td_base[i]['modelId']) .. '\n')
 					f_id:write(string.format('PlayerTextDrawSetPreviewRot(playerid, fstd_p[playerid][%d], %f, %f, %f, %f);', num_play_cyc, g_td_base[i]['rotation']['x'], g_td_base[i]['rotation']['y'], g_td_base[i]['rotation']['z'], g_td_base[i]['zoom']) .. '\n')
-					
+
 					if g_td_base[i]['modelId'] >= 400 and g_td_base[i]['modelId'] <= 611 then
 						f_id:write(string.format('PlayerTextDrawSetPreviewVehCol(playerid, fstd_p[playerid][%d], %d, %d);', num_play_cyc, g_td_base[i]['color'], g_td_base[i]['color2']) .. '\n')
 					end
 				end
 			end
 		end
-		
+
 		num_glob_cyc = num_glob_td
 		num_play_cyc = num_play_td
-		
+
 		for i = 1, #g_td_base do
 			if i == 1 then f_id:write('\n') end
 			if g_td_base[i]['textdrawId'] < 2048 then
@@ -130,8 +130,8 @@ function fstd(arg)
 				f_id:write(string.format('PlayerTextDrawShow(playerid, fstd_p[playerid][%d]);', num_play_cyc) .. '\n')
 			end
 		end
-		
-		sampAddChatMessage('[FSTD] Текстдравы успешно скопированы и сохранены в файл!', 0xFFA500)
+
+		sampAddChatMessage('[FSTD] Textdraws successfully saved to file!', 0xFFA500)
 		start_copy = 0
 		f_id:close()
 		for i = 1, #g_td_base do

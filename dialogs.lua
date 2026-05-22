@@ -15,8 +15,8 @@ local f_id = -1
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(0) end
-	sampAddChatMessage('[FSD] Скрипт успешно загружен / перезагружен, удачного использования!', 0xAFEEEE)
-	sampAddChatMessage('[FSD] Автор всея творения f0Re3t!', 0xAFEEEE)
+	sampAddChatMessage('[FSD] Script successfully loaded / reloaded, enjoy!', 0xAFEEEE)
+	sampAddChatMessage('[FSD] Author of all creation f0Re3t!', 0xAFEEEE)
 	while true do
 		wait(0)
 		if wasKeyPressed(k.VK_X) and not sampIsChatInputActive() and not sampIsDialogActive() and f_id ~= -1 then act_menu.v = not act_menu.v end
@@ -27,14 +27,14 @@ end
 function h.onInitGame(playerId, hostName, settings, vehicleModels, unknown)
 	if f_id == -1 then
 		local serv_name = hostName
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>Х!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>РҐ!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FSD') then createDirectory('FSD') end
 		if not doesFileExist(string.format('FSD\\%s', serv_name)) then
 			f_id = io.open(string.format('FSD\\%s', serv_name), 'a+')
-			sampAddChatMessage('[FSD] Файл создан, двойное нажатие в спсике сохранит выбранный диалог в файл!', 0xFFA500)
+			sampAddChatMessage('[FSD] File created, double-click in the list will save the selected dialog to file!', 0xFFA500)
 		else
 			f_id = io.open(string.format('FSD\\%s', serv_name), 'w+')
-			sampAddChatMessage('[FSD] Файл сервера уже существуюет, удаляем!', 0xFFA500)
+			sampAddChatMessage('[FSD] Server file already exists, removing!', 0xFFA500)
 		end
 	end
 end
@@ -67,22 +67,22 @@ function i.OnDrawFrame()
 		local sx, sy = getScreenResolution()
 		i.SetNextWindowSize(i.ImVec2(800, 500), i.Cond.FirstUseEver)
 		i.SetNextWindowPos(i.ImVec2((sx / 2) - 400, (sy / 2) - 250), i.Cond.FirstUseEver, i.ImVec2(0, 0))
-		i.Begin(e.UTF8(string.format('Стиллер Текстов Диалога (В Базе %d Текстов)', #FSD_base)), act_menu,
+		i.Begin(e.UTF8(string.format('Dialog Text Stealer (In Base %d Texts)', #FSD_base)), act_menu,
 			i.WindowFlags.NoResize + i.WindowFlags.NoMove + i.WindowFlags.NoCollapse + i.WindowFlags.NoScrollbar + i.WindowFlags.NoBringToFrontOnFocus + i.WindowFlags.NoScrollWithMouse)
 		i.Columns(4)
 		i.Separator()
 		i.NewLine()
 		i.SameLine(2)
-		i.Text(e.UTF8('Ид'))
+		i.Text(e.UTF8('ID'))
 		i.SetColumnWidth(-1, 60)
 		i.NextColumn()
-		i.Text(e.UTF8('Стиль'))
+		i.Text(e.UTF8('Style'))
 		i.SetColumnWidth(-1, 230)
 		i.NextColumn()
-		i.Text(e.UTF8('Заголовок'))
+		i.Text(e.UTF8('Title'))
 		i.SetColumnWidth(-1, 250)
 		i.NextColumn()
-		i.Text(e.UTF8('Текст'))
+		i.Text(e.UTF8('Text'))
 		i.SetColumnWidth(-1, 260)
 		i.NextColumn()
 		i.Columns(1)
@@ -111,9 +111,9 @@ function i.OnDrawFrame()
 						if f_id ~= -1 then
 							f_id:write(ed_code .. '\n\n')
 							f_id:flush()
-							sampAddChatMessage('[FSD] Выбранный текст диалога записан в файл!', 0xFFA500)
+							sampAddChatMessage('[FSD] Selected dialog text saved to file!', 0xFFA500)
 						else
-							sampAddChatMessage('[FSD] Ошибка сохранения в файл!', 0xFF4500)
+							sampAddChatMessage('[FSD] Error saving to file!', 0xFF4500)
 						end
 					end
 				end
@@ -121,7 +121,7 @@ function i.OnDrawFrame()
 				i.PushStyleVar(i.StyleVar.WindowPadding, i.ImVec2(4, 4))
 				if i.BeginPopupContextItem() then
 					act_type.v = ed_code
-					i.InputTextMultiline('Редактор кода', act_type, 16384, i.ImVec2(250, 250))
+					i.InputTextMultiline('Code Editor', act_type, 16384, i.ImVec2(250, 250))
 					i.EndPopup()
 				end
 				i.PopStyleVar()
@@ -144,7 +144,7 @@ function i.OnDrawFrame()
 		i.Columns(1)
 		if #FSD_base == 0 then
 			i.SameLine(5.0)
-			i.Text(e.UTF8('Диалогов в базе скрипта нет'))
+			i.Text(e.UTF8('No dialogs in script database'))
 		end
 		i.Separator()
 		i.EndChild()

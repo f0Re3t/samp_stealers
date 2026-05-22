@@ -1,5 +1,5 @@
 local vector3d = require('vector3d')
-local bit = require('numberlua')
+local bit = require('bit')
 local hook = require('samp.events')
 
 script_url('https://vk.com/f0rbka')
@@ -37,15 +37,15 @@ function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(100) end
 	
-	sampAddChatMessage('[FSO SIX] Скрипт успешно загружен и начал сбор данных об объектах', 0xFFFFDAB9)
-	sampAddChatMessage('[FSO SIX] Автор данного скрипта - f0Re3t', 0xFFEEE8AA)
-	sampAddChatMessage('[FSO SIX] Обо всех багах и ошибках скрипта писать в лс в вк', 0xFFEEE8AA)
+	sampAddChatMessage('[FSO SIX] Script successfully loaded and started collecting object data', 0xFFFFDAB9)
+	sampAddChatMessage('[FSO SIX] Author of this script - f0Re3t', 0xFFEEE8AA)
+	sampAddChatMessage('[FSO SIX] Report all bugs and errors to VK PM', 0xFFEEE8AA)
 	
-	if auto_set_int then sampAddChatMessage('[FSO SIX] Активирована система автоматического копирования интерьера! Для оффа - /fso_i', 0xFFFFDAB9) end
-	if auto_set_dd then sampAddChatMessage('[FSO SIX] Включено копирование дальности объекта! Для оффа - /fso_dd', 0xFFFFDAB9) end
-	if show_deleted_obj then sampAddChatMessage('[FSO SIX] Включен показ удаленных объектов! Для оффа - /fso_sdo', 0xFFFFDAB9) end
+	if auto_set_int then sampAddChatMessage('[FSO SIX] Auto interior copy system activated! To disable - /fso_i', 0xFFFFDAB9) end
+	if auto_set_dd then sampAddChatMessage('[FSO SIX] Object draw distance copy activated! To disable - /fso_dd', 0xFFFFDAB9) end
+	if show_deleted_obj then sampAddChatMessage('[FSO SIX] Deleted objects display enabled! To disable - /fso_sdo', 0xFFFFDAB9) end
 	if show_fso_info then
-		sampAddChatMessage('[FSO SIX] Включен показ инфы об объектах на экране! Для оффа - /fso_info', 0xFFFFDAB9)
+		sampAddChatMessage('[FSO SIX] Object info display on screen enabled! To disable - /fso_info', 0xFFFFDAB9)
 		fso_info_thread = lua_thread.create(fso_info_update)
 	end
 	
@@ -75,7 +75,7 @@ function main()
 					servers_deleted_objects[i] = nil
 				end
 			end
-			sampAddChatMessage('[FSO SIX] Соединение с сервером потеряно, база объектов обнулена', 0xFFFFDAB9)
+			sampAddChatMessage('[FSO SIX] Connection to server lost, object database reset', 0xFFFFDAB9)
 		end
 		last_player_state = state
 	end
@@ -96,12 +96,12 @@ end
 function fso_info()
 	if show_fso_info then
 		show_fso_info = false
-		sampAddChatMessage('[FSO SIX] Информация об объектах отключена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Object info display disabled!', 0xFFFFD700)
 		fso_info_thread:terminate()
 		fso_info_thread = -1
 	else
 		show_fso_info = true
-		sampAddChatMessage('[FSO SIX] Информация об объектах включена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Object info display enabled!', 0xFFFFD700)
 		fso_info_thread = lua_thread.create(fso_info_update)
 	end
 end
@@ -125,9 +125,9 @@ function fso_info_update()
 				if selected_to_delete_objects[i] ~= nil and not selected_to_delete_objects[i]['deleted_obj'] then copy_deleted = copy_deleted + 1 end
 			end
 			
-			renderFontDrawText(render_font, string.format('Объектов в бд скрипта: %d | Выделено для копирования: %d | Всего: %d', base_created, copy_created,
+			renderFontDrawText(render_font, string.format('Objects in DB: %d | Selected for copy: %d | Total: %d', base_created, copy_created,
 				#servers_database_objects), 42, 213, 0xFF7FFFD4)
-			renderFontDrawText(render_font, string.format('Удаленных объектов: %d | Выделено для копирования: %d | Всего: %d', base_deleted, copy_deleted,
+			renderFontDrawText(render_font, string.format('Deleted objects: %d | Selected for copy: %d | Total: %d', base_deleted, copy_deleted,
 				#servers_deleted_objects), 42, 233, 0xFFF0E68C)
 		end
 	until false
@@ -136,102 +136,102 @@ end
 function fso_sdo(arg)
 	if show_deleted_obj then
 		show_deleted_obj = false
-		sampAddChatMessage('[FSO SIX] Показ удаленных объектов отключен!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Deleted objects display disabled!', 0xFFFFD700)
 	else
 		show_deleted_obj = true
-		sampAddChatMessage('[FSO SIX] Показ удаленных объектов включен!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Deleted objects display enabled!', 0xFFFFD700)
 	end
 end
 
 function fso_dd(arg)
 	if auto_set_dd then
 		auto_set_dd = false
-		sampAddChatMessage('[FSO SIX] Система установки дальности прорисовки отключена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Draw distance setting system disabled!', 0xFFFFD700)
 	else
 		auto_set_dd = true
-		sampAddChatMessage('[FSO SIX] Система установки дальности прорисовки включена!', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Draw distance setting system enabled!', 0xFFFFD700)
 	end
 end
 
 function fso_i(arg)
 	if auto_set_int then
 		auto_set_int = false
-		sampAddChatMessage('[FSO SIX] Система установки ид интерьера отключена', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Interior ID setting system disabled', 0xFFFFD700)
 	else
 		auto_set_int = true
-		sampAddChatMessage('[FSO SIX] Система установки ид интерьера включена', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Interior ID setting system enabled', 0xFFFFD700)
 	end
 end
 
 function fso_w(arg)
-	if copy_start ~= 0 then return sampAddChatMessage('[FSO SIX] В данный момент задать вирт мир нельзя', 0xFF9ACD32) end
+	if copy_start ~= 0 then return sampAddChatMessage('[FSO SIX] Cannot set virtual world right now', 0xFF9ACD32) end
 	local W = string.match(arg, '(%d+)')
 	W = tonumber(W)
 	if W ~= nil then
 		if W == 0 then int_world = -1 else int_world = W end
-		sampAddChatMessage('[FSO SIX] Вирт мир для объектов успешно установлен', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Virtual world for objects successfully set', 0xFFFFD700)
 		return
 	end
-	sampAddChatMessage('[FSO SIX] Не указан ид вирт мира (если не нужен напиши 0)', 0xFF9ACD32)
+	sampAddChatMessage('[FSO SIX] No virtual world ID specified (if not needed, write 0)', 0xFF9ACD32)
 end
 
 function fso_d(arg)
-	if arg == nil then return sampAddChatMessage('[FSO SIX] Укажите тип удалямоего объекта', 0xFF9ACD32) end
+	if arg == nil then return sampAddChatMessage('[FSO SIX] Specify the type of object to delete', 0xFF9ACD32) end
 	local name, id = string.match(arg, '(%a+)% (%d+)')
 	name = tostring(name)
 	id = tonumber(id)
-	if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
-	if id < 1 then return sampAddChatMessage('[FSO SIX] Указан неверный тип удаляемого объекта', 0xFF9ACD32) end
+	if id == nil then return sampAddChatMessage('[FSO SIX] No ID or type of object to delete specified', 0xFF9ACD32) end
+	if id < 1 then return sampAddChatMessage('[FSO SIX] Invalid type of object to delete specified', 0xFF9ACD32) end
 	local deleted_or_not = false
 	if name == 'CO' or name == 'co' then
-		if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
+		if id == nil then return sampAddChatMessage('[FSO SIX] No ID or type of object to delete specified', 0xFF9ACD32) end
 		for i = 1, #selected_to_copy_objects do
 			if selected_to_copy_objects[i] ~= nil then
 				if selected_to_copy_objects[i]['scr_id'] == id then
 					if selected_to_copy_objects[i]['deleted_obj'] then
-						sampAddChatMessage('[FSO SIX] Объект с указанным идом восстановлен из удаленных', 0xFFFFD700)
+						sampAddChatMessage('[FSO SIX] Object with specified ID restored from deleted', 0xFFFFD700)
 						selected_to_copy_objects[i]['deleted_obj'] = false
 						deleted_or_not = true
 						break
 					end
 					selected_to_copy_objects[i]['deleted_obj'] = true
-					sampAddChatMessage('[FSO SIX] Объект с указанным идом удален из базы копируемых', 0xFFFFD700)
+					sampAddChatMessage('[FSO SIX] Object with specified ID removed from copy database', 0xFFFFD700)
 					deleted_or_not = true
 				end
 			end
 		end
-		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Объект с указанным идом не найден в базе', 0xFF9ACD32) end
+		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Object with specified ID not found in database', 0xFF9ACD32) end
 	elseif name == 'DO' or name == 'do' then
-		if id == nil then return sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32) end
+		if id == nil then return sampAddChatMessage('[FSO SIX] No ID or type of object to delete specified', 0xFF9ACD32) end
 		for i = 1, #selected_to_delete_objects do
 			if selected_to_delete_objects[i] ~= nil then
 				if selected_to_delete_objects[i]['scr_id'] == id then
 					if selected_to_delete_objects[i]['deleted_obj'] then
-						sampAddChatMessage('[FSO SIX] Объект с указанным идом восстановлен из удаленных', 0xFFFFD700)
+						sampAddChatMessage('[FSO SIX] Object with specified ID restored from deleted', 0xFFFFD700)
 						selected_to_delete_objects[i]['deleted_obj'] = false
 						deleted_or_not = true
 						break
 					end
 					selected_to_delete_objects[i]['deleted_obj'] = true
-					sampAddChatMessage('[FSO SIX] Объект с указанным идом удален из базы копируемых', 0xFFFFD700)
+					sampAddChatMessage('[FSO SIX] Object with specified ID removed from copy database', 0xFFFFD700)
 					deleted_or_not = true
 				end
 			end
 		end
-		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Объект с указанным идом не найден в базе', 0xFF9ACD32) end
+		if not deleted_or_not then sampAddChatMessage('[FSO SIX] Object with specified ID not found in database', 0xFF9ACD32) end
 	else
-		sampAddChatMessage('[FSO SIX] Не указан ид или тип удаляемого объекта', 0xFF9ACD32)
+		sampAddChatMessage('[FSO SIX] No ID or type of object to delete specified', 0xFF9ACD32)
 	end
 end
 
 function ffso_cmd_funcs(arg)
 	if copy_start == 0 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Введите название файла в который сохранится маппинг', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Enter the filename to save the mapping to', 0xFF9ACD32) end
 		arg = tostring(arg)
-		if arg == nil or arg == '' then return sampAddChatMessage('[FSO SIX] Введите название файла в который сохранится маппинг', 0xFF9ACD32) end
+		if arg == nil or arg == '' then return sampAddChatMessage('[FSO SIX] Enter the filename to save the mapping to', 0xFF9ACD32) end
 		local serv_name = sampGetCurrentServerName()
-		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
-		arg = arg:gsub('[|%%%[%]! :\\/*|"<>•!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		serv_name = serv_name:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
+		arg = arg:gsub('[|%%%[%]! :\\/*|"<>вЂў!' .. string.char(0x08) .. string.char(0x3F) .. ']', '_')
 		if not doesDirectoryExist('FSO') then createDirectory('FSO') end
 		if not doesDirectoryExist(string.format('FSO\\%s', serv_name)) then createDirectory(string.format('FSO\\%s', serv_name)) end
 		if not doesFileExist(string.format('FSO\\%s\\%s', serv_name, arg)) then
@@ -243,29 +243,29 @@ function ffso_cmd_funcs(arg)
 			if int_world ~= 0 and int_world ~= -1 then
 				f_id:write(string.format('SetPlayerVirtualWorld(playerid, %d);', int_world) .. '\n')
 			end
-			sampAddChatMessage('[FSO SIX] Файл для сохранения маппинга создан, точка спавна установлена, следующий пункт - тип стиллинга объектов', 0xFFFFD700)
-			sampAddChatMessage('[FSO SIX] Доступные типы стиллинга объектов: 1 - по кубоидной форме, 2 - по радиусной форме', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] File for saving mapping created, spawn point set, next step - object stealing type', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] Available object stealing types: 1 - cuboid shape, 2 - radius shape', 0xFFFFD700)
 			copy_start = copy_start + 1
 		else
-			sampAddChatMessage('[FSO SIX] Файл в который вы собираетесь сохранить маппинг уже существует', 0xFF9ACD32)
+			sampAddChatMessage('[FSO SIX] The file you are trying to save mapping to already exists', 0xFF9ACD32)
 		end
 	elseif copy_start == 1 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указан неверный тип стиллинга объектов', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Invalid object stealing type specified', 0xFF9ACD32) end
 		arg = tonumber(arg)
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указан неверный тип стиллинга объектов', 0xFF9ACD32) end
-		if arg < 1 or arg > 2 then return sampAddChatMessage('[FSO SIX] Тип стиллинга не может быть меньше 1 или больше 2', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Invalid object stealing type specified', 0xFF9ACD32) end
+		if arg < 1 or arg > 2 then return sampAddChatMessage('[FSO SIX] Stealing type cannot be less than 1 or greater than 2', 0xFF9ACD32) end
 		if arg == 1 then
 			copy_start = copy_start + 10
-			sampAddChatMessage('[FSO SIX] Тип стиллинга установлен - кубоидная форма, следующий пункт - минимальная позиция', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] Stealing type set - cuboid shape, next step - minimum position', 0xFFFFD700)
 			copy_tipe_select = 2
 		else
 			copy_start = copy_start + 1
-			sampAddChatMessage('[FSO SIX] Тип стиллинга установлен - радиусная форма, следующий пункт - центральная точка радиуса', 0xFFFFD700)
+			sampAddChatMessage('[FSO SIX] Stealing type set - radius shape, next step - center point of radius', 0xFFFFD700)
 			copy_tipe_select = 1
 		end
 	elseif copy_start == 11 then
 		mi_x, mi_y, mi_z = getCharCoordinates(PLAYER_PED)
-		sampAddChatMessage('[FSO SIX] Минимальная позиция куба установлена, следующий пункт - максимальная позиция', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Minimum cuboid position set, next step - maximum position', 0xFFFFD700)
 		copy_start = copy_start + 1
 	elseif copy_start == 12 then
 		ma_x, ma_y, ma_z = getCharCoordinates(PLAYER_PED)
@@ -303,21 +303,21 @@ function ffso_cmd_funcs(arg)
 			for i = 1, #selected_to_delete_objects do
 				selected_to_delete_objects[i] = nil
 			end
-			sampAddChatMessage('[FSO SIX] В заданном кубе не найдено ни одного объекта для копирования', 0xFFFFFF00)
+			sampAddChatMessage('[FSO SIX] No objects found in the specified cuboid for copying', 0xFFFFFF00)
 			return
 		end
-		sampAddChatMessage('[FSO SIX] Начинаем рендер всех выделенных объектов в заданном кубе, следующий пункт - сохранение маппинга в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Starting render of all selected objects in the specified cuboid, next step - save mapping to file', 0xFFFFD700)
 		render_id = lua_thread.create(render_objects_id_keys)
 		copy_start = 4
 	elseif copy_start == 2 then
 		ma_x, ma_y, ma_z = getCharCoordinates(PLAYER_PED)
-		sampAddChatMessage('[FSO SIX] Центральная точка радиуса установлена, следующий пункт - значеие самого радиуса', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Center point of radius set, next step - radius value', 0xFFFFD700)
 		copy_start = copy_start + 1
 	elseif copy_start == 3 then
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указано неверное значение радиуса', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Invalid radius value specified', 0xFF9ACD32) end
 		arg = tonumber(arg)
-		if arg == nil then return sampAddChatMessage('[FSO SIX] Указано неверное значение радиуса', 0xFF9ACD32) end
-		if arg < 1 or arg > 5000 then return sampAddChatMessage('[FSO SIX] Задано кривое значеие радиуса | Радиус не может быть меньше 1 или больше 5000', 0xFF9ACD32) end
+		if arg == nil then return sampAddChatMessage('[FSO SIX] Invalid radius value specified', 0xFF9ACD32) end
+		if arg < 1 or arg > 5000 then return sampAddChatMessage('[FSO SIX] Invalid radius value | Radius cannot be less than 1 or greater than 5000', 0xFF9ACD32) end
 		type_two_radius = arg
 		for i = 1, #servers_database_objects do
 			if servers_database_objects[i] ~= nil then
@@ -353,10 +353,10 @@ function ffso_cmd_funcs(arg)
 			for i = 1, #selected_to_delete_objects do
 				selected_to_delete_objects[i] = nil
 			end
-			sampAddChatMessage('[FSO SIX] В заданном радиусе не найдено ни одного объекта для копирования', 0xFFFFFF00)
+			sampAddChatMessage('[FSO SIX] No objects found in the specified radius for copying', 0xFFFFFF00)
 			return
 		end
-		sampAddChatMessage('[FSO SIX] Начинаем рендер всех выделенных объектов в заданном радиусе, следующий пункт - сохранение маппинга в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Starting render of all selected objects in the specified radius, next step - save mapping to file', 0xFFFFD700)
 		render_id = lua_thread.create(render_objects_id_keys)
 		copy_start = copy_start + 1
 	elseif copy_start == 4 then
@@ -473,7 +473,7 @@ function ffso_cmd_funcs(arg)
 			end
 		end
 		
-		sampAddChatMessage('[FSO SIX] Маппинг успешно скопирован с сервера и сохранен в файл', 0xFFFFD700)
+		sampAddChatMessage('[FSO SIX] Mapping successfully copied from server and saved to file', 0xFFFFD700)
 		
 		f_id:close()
 		render_id:terminate()
@@ -1117,6 +1117,6 @@ function fso_un(arg)
 		end
 	end
 	
-	sampAddChatMessage('[FSO SIX] Дамп базы объектов скрипта сохранен в папке игры с названием debug_map', 0xFFFFD700)
+	sampAddChatMessage('[FSO SIX] Script object database dump saved to game folder as debug_map', 0xFFFFD700)
 	debug_id:close()
 end
